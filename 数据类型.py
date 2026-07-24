@@ -11,20 +11,29 @@
 # a = "world"
 # print(isinstance(a, str))
 
-# 字符串
-# 字符串的定义
-a1 = "python"
-a2 = 'string'
-a3 = """
-hello:
-    this is my py-study
-"""
-print(a1)
-print(a2)
-print(a3)
+# # 字符串
+# # 字符串的定义
+# a1 = "python"
+# a2 = 'string'
+# a3 = """
+# hello:
+#     this is my py-study
+# """
+# print(a1)
+# print(a2)
+# print(a3)
+#
+# # 转义字符 \'  \"  \n  \t
+# a4 = 'It\'s very good'
+# print(a4)
+# a5 = "It's very good"
+# print(a5)
 
-#转义字符 \'  \"  \n  \t
-a4='It\'s very good'
-print(a4)
-a5="It's very good"
-print(a5)
+# 字符串拼接
+s1 = "hello"
+s2 = "world"
+print(s1 + ',' + s2)
+# 字符串格式化
+print("%s,%s" % (s1, s2))
+name = "joh"
+print(f"大家好，我是{name}")
