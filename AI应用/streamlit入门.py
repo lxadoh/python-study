@@ -1,6 +1,22 @@
 import streamlit as st
 
 
+# 设置页面的配置项
+st.set_page_config(
+    page_title="streamlit入门",
+    page_icon="🧊",
+    # 布局
+    layout="wide",
+    # 控制侧边栏
+    initial_sidebar_state="expanded",
+    menu_items={
+        'Get Help': 'https://www.extremelycoolapp.com/help',
+        'Report a bug': "https://www.extremelycoolapp.com/bug",
+        'About': "# This is a header. This is an *extremely* cool app!"
+    }
+)
+
+
 # 大标题
 st.title("streamlit 入门演示")
 st.header("streamlit 一级标题")
