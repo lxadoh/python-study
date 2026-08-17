@@ -45,6 +45,7 @@ def load_sessions():
         for filenmae in file_list:
             if filenmae.endswith(".json"):
                 sesion_list.append(filenmae[:-5])
+    sesion_list.sort(reverse=True)
     return sesion_list
 
 
@@ -154,6 +155,8 @@ with st.sidebar:
                 delete_session(session)
                 st.rerun() # 刷新页面，显示最新的会话列表
 
+    # 分割线
+    st.divider()
 
     st.subheader("伴侣信息")
     # placeholder的作用：在输入框中显示提示信息，当用户输入内容时，提示信息会自动消失
