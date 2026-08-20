@@ -24,11 +24,14 @@ with open("csv_data/01.csv", 'r', encoding='utf-8') as f:
 #     # fieldnames: 表示表头字段名
 #     writer = csv.DictWriter(f, fieldnames=['姓名', '年龄', '性别', '爱好'])
 #     writer.writeheader() # 写入表头
-#     # writerow(): 写入一行数据
+#     # writerow(): 写入一行数据  参数: 一个字典
 #     writer.writerow({'姓名': '张三', '年龄': '18', '性别': '男', '爱好': '篮球'})
 #     writer.writerow({'姓名': '李四', '年龄': '19', '性别': '女', '爱好': '足球'})
 #     writer.writerow({'姓名': '王五', '年龄': '20', '性别': '男', '爱好': '跑步'})
 #     writer.writerow({'姓名': '赵六', '年龄': '21', '性别': '女', '爱好': '篮球'})
+    # writerows(): 写入多行数据  参数: 一个字典列表
+    writer.writerows([{'姓名': '王二', '年龄': '22', '性别': '男', '爱好': '跑步'},
+                      {'姓名': '赵二', '年龄': '23', '性别': '女', '爱好': '篮球'}])
 #
 # # 读
 # with open("csv_data/02.csv", 'r', encoding='utf-8') as f:
