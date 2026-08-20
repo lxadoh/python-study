@@ -1,8 +1,8 @@
 # sorted(字符串)：把字符串每个字符拆开排序，返回字符列表
-print(sorted("hello"))
+print(sorted("hello")) #['e', 'h', 'l', 'l', 'o']
 
 # 分隔符.join(字符串列表)：把字符串列表用指定分隔符连接起来，返回字符串
-print("".join(["hello", "world"]))
+print("".join(["hello", "world"])) # helloelloworld
 
 nums = ["1", "2", "3", "4", "5"]
-print("-".join(nums))
+print("-".join(nums)) # 1-2-3-4-5
