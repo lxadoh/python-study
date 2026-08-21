@@ -1,10 +1,10 @@
 import requests
 from lxml import html
 import csv
-
+import re
 
 # 常量
-MOVIE_LIST_FILE = "csv_data/movie_list.csv"
+MOVIE_LIST_FILE = "csv_data/movie_list_3.csv"
 # 电影榜单url
 TMDB_BASE_URL = "https://www.themoviedb.org"
 TMDB_TOP_URL_1 = "https://www.themoviedb.org/movie/top-rated" # 电影榜单的url（第一页）
@@ -18,6 +18,25 @@ def save_all_movies(all_movies):
         writer.writeheader() # 写入表头
         writer.writerows(all_movies) # 写入多行数据  参数: 一个字典列表
 
+# 获得电影年份
+def get_movie_year(movie_years):
+    movie_year = movie_years[0].strip() if movie_years else ''
+    return movie_year.strip("()")
+
+# 获得电影上映时间
+def get_movie_data(movie_datas):
+    movie_data = movie_datas[0].strip() if movie_datas else ''
+    return re.search(r'\d{4}-\d{2}-\d{2}', movie_data).group()
+
+# 获得电影时长（分钟）
+def get_movie_cost_time(movie_cost_times):
+    movie_cost_time = movie_cost_times[0].strip() if movie_cost_times else ''
+    h_res = re.search(r"(\d+)h", movie_cost_time)
+    m_res = re.search(r"(\d+)m", movie_cost_time)
+    # group(1) 表示捕获组1：（\d+）的内容，group(2) 表示捕获组2：h的内容， group()和group(0) 表示整个匹配内容
+    h = int(h_res.group(1)) if h_res else 0
+    m = int(m_res.group(1)) if m_res else 0
+    return h * 60 + m
 
 
 # 定义函数，获得电影详情
@@ -43,10 +62,10 @@ def get_movie_info(movie_info_url):
     # 4. 返回电影详情 - 字典
     movie_info = {
         '电影名': movie_names[0].strip() if movie_names else '',
-        '年份': movie_years[0].strip() if movie_years else '',
-        '上映时间': movie_datas[0].strip() if movie_datas else '',
+        '年份': get_movie_year(movie_years),
+        '上映时间': get_movie_data(movie_datas),
         '标签': ",".join(movie_tags) if movie_tags else '',
-        '时长': movie_cost_times[0].strip() if movie_cost_times else '',
+        '时长': get_movie_cost_time(movie_cost_times),
         '评分': movie_scores[0].strip() if movie_scores else '',
         '语言': movie_languages[0].strip() if movie_languages else '',
         '导演': movie_directors[0].strip() if movie_directors else '',
@@ -67,7 +86,7 @@ def main():
             response = requests.post(TMDB_TOP_URL_2,
                                      f"air_date.gte=&air_date.lte=&certification=&certification_country=CN&debug=&first_air_date.gte=&first_air_date.lte=&include_adult=false&include_softcore=false&latest_ceremony.gte=&latest_ceremony.lte=&page={page_num}&primary_release_date.gte=&primary_release_date.lte=&region=&release_date.gte=&release_date.lte=2027-02-21&show_me=everything&sort_by=vote_average.desc&vote_average.gte=0&vote_average.lte=10&vote_count.gte=300&watch_region=CN&with_genres=&with_keywords=&with_networks=&with_origin_country=&with_original_language=&with_watch_monetization_types=&with_watch_providers=&with_release_type=&with_runtime.gte=0&with_runtime.lte=400",
                                      timeout=60)
-        print("发送请求,获得TMDB高分电影榜单数据")
+        print(f"发送请求，访问第{page_num}页数据，获得TMDB高分电影榜单数据")
 
         # 2. 解析数据，提取电影列表
         document = html.fromstring(response.text)
