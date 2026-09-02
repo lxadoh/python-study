@@ -38,7 +38,7 @@ st.audio("resources/news.mp3")
 # 视频
 st.video("resources/news.mp4")
 
-# Loge
+# logo
 st.logo("resources/logo.png")
 
 # 表格
